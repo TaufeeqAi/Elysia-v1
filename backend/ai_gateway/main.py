@@ -11,6 +11,7 @@ class ChatRequest(BaseModel):
     api_key: str
     prompt: str
     model: str | None = None
+    system_prompt: str | None = "You are a helpful AI Assistant"
 
 async def stream_response(chain, user_input: str):
     """Stream LLM response token-by-token."""
@@ -22,7 +23,7 @@ async def chat(request: ChatRequest):
     try:
         # Initialize LLM and chain
         llm = create_llm(request.provider, request.api_key, request.model)
-        chain = create_chat_chain(llm)
+        chain = create_chat_chain(llm, request.system_prompt or "You are a helpful AI assistant.")
 
         # Return streaming response
         return StreamingResponse(

@@ -3,6 +3,7 @@ from langchain_groq import ChatGroq
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_ollama import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 
 def create_llm(provider: str = "groq", api_key: str = None, model: str=None):
@@ -28,10 +29,12 @@ def create_llm(provider: str = "groq", api_key: str = None, model: str=None):
             openai_api_key=api_key,
             streaming=True,
         )
+    elif provider == "ollama":
+        return ChatOllama(model=model or "llama3.1", base_url="http://localhost:11434")
     else:
         raise ValueError(f"Unsupported LLM provider: {provider}")
 
-def create_chat_chain(llm, system_prompt: str = "You are a helpful AI assistant."):
+def create_chat_chain(llm, system_prompt):
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         ("user", "{input}")

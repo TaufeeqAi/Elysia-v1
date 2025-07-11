@@ -18,10 +18,11 @@ var upgrader = websocket.Upgrader{
 }
 
 type ChatRequest struct {
-	Provider string `json:"provider"`
-	APIKey   string `json:"api_key"`
-	Prompt   string `json:"prompt"`
-	Model    string `json:"model,omitempty"`
+	Provider     string `json:"provider"`
+	APIKey       string `json:"api_key"`
+	Prompt       string `json:"prompt"`
+	Model        string `json:"model,omitempty"`
+	SystemPrompt string `json:"system_prompt,omitempty"`
 }
 
 func main() {

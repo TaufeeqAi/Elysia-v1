@@ -4,3 +4,4 @@ backend/ai_gateway/__pycache__
 backend/ai_gateway/ai_factory/__pycache__
 backend/go.sum
 backend/ai_gateway/.env
+frontend/elysia_app/.env
